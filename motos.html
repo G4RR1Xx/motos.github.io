@@ -13,32 +13,44 @@
         <a-assets>
             <a-asset-item id="modelo" src="captain_america_bike.glb" timeout="10000"></a-asset-item>
             <a-asset-item id="modelo2" src="yamaha_yzf-r3_2017.glb" timeout="10000"></a-asset-item>
-            <audio id="sound" src="65395b8fe5c662.67152871.mp3" preload="auto"></audio>
+            <audio id="sound" src="moto capitan.mp3" preload="auto"></audio>
+            <audio id="sound2" src="yamahar3.mp3" preload="auto"></audio>
         </a-assets>
 
-        <a-marker type="barcode" value="5" raycaster="objects: .clickable" emitevents="true"
+        <a-marker id="america" type="barcode" value="5" raycaster="objects: .clickable" emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;">
-            <a-entity gltf-model="#modelo" scale="2 2 1" class="clickable" gesture-handler soundhandler></a-entity>
+            <a-entity  gltf-model="#modelo" scale="2 2 1" class="clickable" gesture-handler soundhandler></a-entity>
         </a-marker>
 
-        <a-marker type="barcode" value="8" raycaster="objects: .clickable" emitevents="true"
+        <a-marker id="moto_chida" type="barcode" value="8" raycaster="objects: .clickable" emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;">
-            <a-entity gltf-model="#modelo2" scale="5 5 5" class="clickable" gesture-handler soundhandler></a-entity>
+            <a-entity  gltf-model="#modelo2" scale="5 5 5" class="clickable" gesture-handler soundhandler></a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
 
-        <a-entity sound="src: #sound" autoplay="false"></a-entity>
+        <a-entity id="capitan" sound="src: #sound" autoplay="false"></a-entity>
+        <a-entity id="yama" sound2="src: #sound2" autoplay="false"></a-entity>
     </a-scene>
 
     <script>
         AFRAME.registerComponent('soundhandler', {
             tick: function () {
-                var entity = document.querySelector('[sound]');
-                if (document.querySelector('a-marker').object3D.visible || document.querySelector('a-marker[type="barcode"]').object3D.visible) {
+                var entity = document.querySelector('[capitan]');
+                var entity2 = document.querySelector('[yama]')
+                if (document.querySelector('america').object3D.visible == true)
+                {
+                    entity2.components.sound.pauseSound();
                     entity.components.sound.playSound();
-                } else {
+
+                } else if (document.querySelector('moto_chida'.object3D.visible == true){
                     entity.components.sound.pauseSound();
+                    entity2.components.sound.playSound();
+                }
+                else{
+                     entity2.components.sound.pauseSound();
+                     entity.components.sound.pauseSound();
+
                 }
             }
         });
